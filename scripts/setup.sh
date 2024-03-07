@@ -2,7 +2,7 @@
 
 # Make sure all our variables are defined!
 while read var; do
-  [ -z "${!var}" ] && { echo "$var is not defined!"; exit 1; }
+  [ -z "${!var}" ] && { echo "Variable $var is not defined!"; exit 1; }
 done << EOF
 PROJECT_ID
 LOCATION
