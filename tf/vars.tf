@@ -32,3 +32,14 @@ variable "gcs_bucket_name" {
  type = string
  default = "model-bucket"
 }
+
+variable "api_list" {
+  description ="APIs to enable on the project"
+  type = list(string)
+  default = [
+    "healthcare.googleapis.com",
+    "bigquery.googleapis.com",
+    "notebooks.googleapis.com",
+    "aiplatform.googleapis.com"
+  ]
+}

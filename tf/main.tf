@@ -6,17 +6,6 @@ provider "google" {
 data "google_project" "project" {
 }
 
-variable "api_list" {
-  description ="APIs to enable on the project"
-  type = list(string)
-  default = [
-    "healthcare.googleapis.com",
-    "bigquery.googleapis.com",
-    "notebooks.googleapis.com",
-    "aiplatform.googleapis.com"
-  ]
-}
-
 resource "google_project_service" "enable" {
   for_each = toset(var.api_list)
   service = each.key
