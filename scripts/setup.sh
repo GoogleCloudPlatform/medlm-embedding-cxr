@@ -14,8 +14,8 @@ MODEL_BUCKET_NAME
 EOF
 
 # Python packages
-echo Installing python packages
-pip install db-dtypes scikit-learn "tf-models-official>=2.13.0" > /dev/null # only errs
+printf "***\n* Installing python packages\n***\n"
+pip install google-cloud-bigquery pydicom db-dtypes scikit-learn "tf-models-official>=2.13.0" > /dev/null # only errs
 
 # Retrieve terraform executable and scripts locally
 TF_URL=https://releases.hashicorp.com/terraform/1.6.1/terraform_1.6.1_linux_amd64.zip
@@ -38,7 +38,7 @@ else
 fi
 
 # Deploy terraform
-echo Deploying terraform resources
+printf "***\n* Deploying terraform resources\n***\n"
 ./terraform -chdir=./tf init
 ./terraform -chdir=./tf plan -var="project_id=$PROJECT_ID" -var="location=$LOCATION" -var="dataset_id=$DATASET_ID" -var="store_id=$STORE_ID" -var="table_id=$BQ_TABLE_ID" -var="vertex_endpoint_name=$VERTEX_ENDPOINT_ID" -var="gcs_bucket_name=$MODEL_BUCKET_NAME" -out tf.plan
 ./terraform -chdir=./tf apply tf.plan
@@ -47,7 +47,7 @@ echo Deploying terraform resources
 # gcloud healthcare dicom-stores import gcs $STORE_ID --dataset=$DATASET_ID --project=$PROJECT_ID --location=$LOCATION --gcs-uri="gs://cxr-foundation-demo/cxr14/inputs/*.dcm"
 
 # Import into Healthcare API, so embeddings API can access DICOM images
-echo Importing studies in to Healthcare API DICOM Store
+printf "***\n* Importing studies in to Healthcare API DICOM Store\n***\n"
 gcloud healthcare dicom-stores import gcs $STORE_ID --dataset=$DATASET_ID --project=$PROJECT_ID --location=$LOCATION --gcs-uri="gs://mis-ai-accelerator/data/staged/inputs/*.dcm"
 
 # Create directory tree for output

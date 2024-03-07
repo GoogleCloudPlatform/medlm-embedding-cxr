@@ -13,10 +13,10 @@ MODEL_BUCKET_NAME
 MODEL_DIR
 EOF
 
-echo Copying model to GCS bucket
+printf "***\n* Copying model to GCS bucket\n***\n"
 gsutil cp -r $MODEL_DIR gs://$MODEL_BUCKET_NAME
 
-echo Uploading the model to Vertex AI Model Registry
+printf "***\n* Uploading the model to Vertex AI Model Registry\n***\n"
 gcloud ai models upload \
   --project=$PROJECT_ID \
   --region=$LOCATION \
@@ -26,9 +26,8 @@ gcloud ai models upload \
 MODEL_ID=$(
     gcloud ai models list --project=$PROJECT_ID --region=$LOCATION | grep $MODEL_NAME | awk '{print $1}' | head -1
 )
-echo ModelID: $MODEL_ID
 
-echo Hosting the model on a Vertex AI endpoint
+printf "***\n* Hosting the model on a Vertex AI endpoint\n***\n"
 gcloud ai endpoints deploy-model $VERTEX_ENDPOINT_ID \
   --project=$PROJECT_ID \
   --region=$LOCATION \
