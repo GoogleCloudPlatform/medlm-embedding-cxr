@@ -20,9 +20,7 @@ pip install pydicom scikit-learn "tf-models-official==2.14.0" > /dev/null # only
 # NOTE: If you want to explore all variations of labeled images from the NIH Chest X-ray dataset, please feel free to ingest all using the following:
 # gcloud healthcare dicom-stores import gcs $STORE_ID --dataset=$DATASET_ID --project=$PROJECT_ID --location=$LOCATION --gcs-uri="gs://cxr-foundation-demo/cxr14/inputs/*.dcm"
 
-# Import into Healthcare API, so embeddings API can access DICOM images
-printf "***\n* Importing studies in to Healthcare API DICOM Store\n***\n"
-gcloud healthcare dicom-stores import gcs $STORE_ID --dataset=$DATASET_ID --project=$PROJECT_ID --location=$LOCATION --gcs-uri="gs://mis-ai-accelerator/data/staged/inputs/*.dcm"
-
+# Create Vertex AI Endpoint
+gcloud ai endpoints create --project=$PROJECT_ID --region=$LOCATION --display-name=$VERTEX_ENDPOINT_ID --endpoint-id=$VERTEX_ENDPOINT_ID
 # Create directory tree for output
 mkdir -p data/outputs/model
