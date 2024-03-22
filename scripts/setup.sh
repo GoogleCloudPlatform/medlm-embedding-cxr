@@ -15,7 +15,7 @@ EOF
 
 # Python packages
 printf "***\n* Installing python packages\n***\n"
-pip install google-cloud-bigquery pydicom db-dtypes scikit-learn "tf-models-official>=2.13.0" > /dev/null # only errs
+pip install db-dtypes google-cloud-bigquery pydicom scikit-learn "tf-models-official==2.14.0" > /dev/null # only errs
 
 # Retrieve terraform executable and scripts locally
 TF_URL=https://releases.hashicorp.com/terraform/1.6.1/terraform_1.6.1_linux_amd64.zip
