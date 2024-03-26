@@ -19,8 +19,10 @@ pip install pydicom scikit-learn "tf-models-official==2.14.0" > /dev/null # only
 
 # Create Model Bucket
 printf "***\n* Creating and GCS Bucket to store trained model artifacts\n***\n"
-bucketName = "gs://" + $MODEL_BUCKET_NAME
-gcloud storage buckets create $bucketName --project=$PROJECT_ID
+bucketName="gs://"
+bucketName+=$MODEL_BUCKET_NAME
+printf "Bucket Name: %s\n" $bucketName
+gcloud storage buckets create $bucketName --project=$PROJECT_ID --location=$LOCATION
 
 # Create and populate DICOM store
 printf "***\n* Creating and populating Test DICOM Store\n***\n"
