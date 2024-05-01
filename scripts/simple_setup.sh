@@ -18,6 +18,8 @@ EOF
 printf "***\n* Installing python packages\n***\n"
 pip install pydicom scikit-learn "tf-models-official==2.14.0" > /dev/null # only errs
 
+gcloud config set project $PROJECT_ID
+
 # Create Model Bucket
 printf "***\n* Creating and GCS Bucket to store trained model artifacts\n***\n"
 bucketName="gs://"
