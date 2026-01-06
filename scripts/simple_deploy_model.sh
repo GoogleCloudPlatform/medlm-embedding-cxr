@@ -14,7 +14,7 @@ MODEL_DIR
 EOF
 
 printf "***\n* Copying model to GCS bucket\n***\n"
-gsutil cp -r $MODEL_DIR gs://$MODEL_BUCKET_NAME
+gcloud storage cp --recursive $MODEL_DIR gs://$MODEL_BUCKET_NAME
 
 printf "***\n* Uploading the model to Vertex AI Model Registry\n***\n"
 gcloud ai models upload \
